@@ -28,17 +28,18 @@ const Board = () => {
   return (
     <div>
       <Header resetBoard={resetBoard} />
-      <div className="flex overflow-x-auto py-6 space-x-4">
+      <button
+        onClick={addList}
+        className="fixed bottom-4 right-4 bg-green-500 text-white py-4 px-8 rounded shadow-lg hover:bg-green-600 transition-all duration-300"
+      >
+        Add New List
+      </button>
+
+      <div className="flex overflow-x-auto py-6 space-x-4 scrollbar-hide">
         {lists.map((list) => (
           <List key={list.id} list={list} setLists={setLists} />
         ))}
       </div>
-      <button
-        onClick={addList}
-        className="bg-green-500 text-white py-4 px-8 rounded"
-      >
-        Add New List
-      </button>
     </div>
   );
 };
