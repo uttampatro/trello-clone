@@ -61,12 +61,23 @@ const Board = () => {
                 {...provided.droppableProps}
               >
                 {lists.map((list, index) => (
-                  <List
+                  <Droppable
                     key={list.id}
-                    list={list}
-                    setLists={setLists}
-                    index={index}
-                  />
+                    droppableId={list.id.toString()}
+                    type="card"
+                  >
+                    {(provided) => (
+                      <div ref={provided.innerRef} {...provided.droppableProps}>
+                        <List
+                          key={list.id}
+                          list={list}
+                          setLists={setLists}
+                          index={index}
+                        />
+                        {provided.placeholder}
+                      </div>
+                    )}
+                  </Droppable>
                 ))}
                 {provided.placeholder}
               </div>
