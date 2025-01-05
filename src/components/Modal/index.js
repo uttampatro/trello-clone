@@ -24,37 +24,39 @@ const Modal = ({ card, setLists, listId, setShowModal }) => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-      <div className="bg-white p-6 rounded w-80">
-        <h2>Edit Card</h2>
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-96">
+        <h2 className="text-lg font-bold mb-4 text-gray-800">Edit Card</h2>
         <input
           type="text"
-          className="w-full p-2 mb-2 border rounded"
+          className="w-full p-3 mb-4 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          placeholder="Card Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
         <textarea
-          className="w-full p-2 mb-2 border rounded"
+          className="w-full p-3 mb-4 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
           placeholder="Description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-        />
+          rows="4"
+        ></textarea>
         <input
           type="date"
-          className="w-full p-2 mb-2 border rounded"
+          className="w-full p-3 mb-4 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
           value={dueDate}
           onChange={(e) => setDueDate(e.target.value)}
         />
-        <div className="flex justify-between mt-2">
+        <div className="flex justify-end space-x-4 mt-6">
           <button
             onClick={saveChanges}
-            className="bg-blue-500 text-white py-2 px-4 rounded"
+            className="py-2 px-6 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition duration-200"
           >
             Save
           </button>
           <button
             onClick={() => setShowModal(false)}
-            className="bg-red-500 text-white py-2 px-4 rounded"
+            className="py-2 px-6 bg-red-500 text-white rounded-lg shadow-md hover:bg-red-600 transition duration-200"
           >
             Cancel
           </button>

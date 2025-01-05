@@ -18,10 +18,21 @@ const Card = ({ card, setLists, listId }) => {
   return (
     <>
       <div
-        className="bg-white p-4 mb-2 rounded shadow cursor-pointer"
+        className="bg-white p-4 mb-2 rounded shadow cursor-pointer overflow-hidden"
         onClick={() => setShowModal(true)}
       >
-        <h3>{card.title}</h3>
+        <div className="flex justify-between items-center">
+          <h3 className="truncate max-w-[calc(100%-60px)]">{card.title}</h3>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              deleteCard();
+            }}
+            className="text-red-500 hover:underline"
+          >
+            Delete
+          </button>
+        </div>
       </div>
       {showModal && (
         <Modal
@@ -31,9 +42,6 @@ const Card = ({ card, setLists, listId }) => {
           setShowModal={setShowModal}
         />
       )}
-      <button onClick={deleteCard} className="text-red-500 mt-2">
-        Delete Card
-      </button>
     </>
   );
 };
