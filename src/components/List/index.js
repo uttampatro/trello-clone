@@ -64,6 +64,12 @@ const List = ({ list, setLists, index }) => {
           placeholder="Enter card title..."
           value={newCardTitle}
           onChange={(e) => setNewCardTitle(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              addCard();
+            }
+          }}
         />
         <button
           onClick={addCard}
