@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "../Header";
 import List from "../List";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 const Board = () => {
   const [lists, setLists] = useState([]);
@@ -21,8 +22,23 @@ const Board = () => {
   const addList = () => {
     const title = prompt("Enter list title");
     if (title) {
-      setLists([...lists, { id: Date.now(), title, cards: [] }]);
+      setLists([...lists, { id: Date.now().toString(), title, cards: [] }]);
     }
+  };
+
+  const onDragEnd = (result) => {
+    const { source, destination, type } = result;
+
+    if (!destination) return;
+    const sourceList = lists.find((list) => list.id === source.droppableId);
+    const destinationList = lists.find(
+      (list) => list.id === destination.droppableId
+    );
+
+    const [movedCard] = sourceList.cards.splice(source.index, 1);
+    destinationList.cards.splice(destination.index, 0, movedCard);
+
+    setLists([...lists]);
   };
 
   return (
@@ -36,11 +52,27 @@ const Board = () => {
           Add New List
         </button>
 
-        <div className="flex overflow-x-auto py-6 space-x-5 scrollbar-hide">
-          {lists.map((list) => (
-            <List key={list.id} list={list} setLists={setLists} />
-          ))}
-        </div>
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId="board" direction="horizontal" type="list">
+            {(provided) => (
+              <div
+                className="flex overflow-x-auto py-6 space-x-5 scrollbar-hide"
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+              >
+                {lists.map((list, index) => (
+                  <List
+                    key={list.id}
+                    list={list}
+                    setLists={setLists}
+                    index={index}
+                  />
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
       </div>
     </div>
   );

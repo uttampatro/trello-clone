@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import Card from "../Card";
+import { Droppable } from "react-beautiful-dnd";
 
-const List = ({ list, setLists }) => {
+const List = ({ list, setLists, index }) => {
   const [newCardTitle, setNewCardTitle] = useState("");
 
   const addCard = () => {
     if (newCardTitle) {
       const updatedList = {
         ...list,
-        cards: [...list.cards, { id: Date.now(), title: newCardTitle }],
+        cards: [
+          ...list.cards,
+          { id: Date.now().toString(), title: newCardTitle },
+        ],
       };
       setLists((prevLists) =>
         prevLists.map((l) => (l.id === list.id ? updatedList : l))
@@ -31,16 +35,28 @@ const List = ({ list, setLists }) => {
           Delete
         </button>
       </div>
-      <div>
-        {list.cards.map((card) => (
-          <Card
-            key={card.id}
-            card={card}
-            setLists={setLists}
-            listId={list.id}
-          />
-        ))}
-      </div>
+
+      <Droppable droppableId={list.id} type="card">
+        {(provided) => (
+          <div
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+            className="space-y-2"
+          >
+            {list.cards.map((card, index) => (
+              <Card
+                key={card.id}
+                card={card}
+                setLists={setLists}
+                listId={list.id}
+                index={index}
+              />
+            ))}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+
       <div className="mt-4 bg-gray-50 p-4 rounded-lg shadow-md">
         <input
           type="text"

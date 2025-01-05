@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Modal from "../Modal";
+import { Draggable } from "react-beautiful-dnd";
 
-const Card = ({ card, setLists, listId }) => {
+const Card = ({ card, setLists, listId, index }) => {
   const [showModal, setShowModal] = useState(false);
 
   const deleteCard = () => {
@@ -17,14 +18,21 @@ const Card = ({ card, setLists, listId }) => {
 
   return (
     <>
-      <div
-        className="bg-white p-4 mt-4 rounded shadow cursor-pointer overflow-hidden"
-        onClick={() => setShowModal(true)}
-      >
-        <div className="flex justify-between items-center">
-          <h3 className="truncate max-w-[calc(100%-60px)]">{card.title}</h3>
-        </div>
-      </div>
+      <Draggable draggableId={card.id} index={index}>
+        {(provided) => (
+          <div
+            className="bg-white p-4 mt-4 rounded shadow cursor-pointer overflow-hidden"
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            onClick={() => setShowModal(true)}
+          >
+            <div className="flex justify-between items-center">
+              <h3 className="truncate max-w-[calc(100%-60px)]">{card.title}</h3>
+            </div>
+          </div>
+        )}
+      </Draggable>
       {showModal && (
         <Modal
           deleteCard={deleteCard}
