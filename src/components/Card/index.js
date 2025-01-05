@@ -18,24 +18,16 @@ const Card = ({ card, setLists, listId }) => {
   return (
     <>
       <div
-        className="bg-white p-4 mb-2 rounded shadow cursor-pointer overflow-hidden"
+        className="bg-white p-4 mt-4 rounded shadow cursor-pointer overflow-hidden"
         onClick={() => setShowModal(true)}
       >
         <div className="flex justify-between items-center">
           <h3 className="truncate max-w-[calc(100%-60px)]">{card.title}</h3>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              deleteCard();
-            }}
-            className="text-red-500 hover:underline"
-          >
-            Delete
-          </button>
         </div>
       </div>
       {showModal && (
         <Modal
+          deleteCard={deleteCard}
           card={card}
           setLists={setLists}
           listId={listId}
