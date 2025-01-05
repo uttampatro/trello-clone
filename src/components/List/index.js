@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Card from "../Card";
 import { Droppable } from "react-beautiful-dnd";
 
-const List = ({ list, setLists, index }) => {
+const List = ({ list, setLists,  }) => {
   const [newCardTitle, setNewCardTitle] = useState("");
 
   const addCard = () => {

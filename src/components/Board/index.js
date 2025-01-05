@@ -68,12 +68,7 @@ const Board = () => {
                   >
                     {(provided) => (
                       <div ref={provided.innerRef} {...provided.droppableProps}>
-                        <List
-                          key={list.id}
-                          list={list}
-                          setLists={setLists}
-                          index={index}
-                        />
+                        <List key={list.id} list={list} setLists={setLists} />
                         {provided.placeholder}
                       </div>
                     )}
