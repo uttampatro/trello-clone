@@ -62,6 +62,7 @@ const List = ({ list, setLists,  }) => {
           type="text"
           className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:outline-none"
           placeholder="Enter card title..."
+          required
           value={newCardTitle}
           onChange={(e) => setNewCardTitle(e.target.value)}
           onKeyDown={(e) => {
